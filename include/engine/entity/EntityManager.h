@@ -21,7 +21,6 @@ class EntityManager final
 private:
 	component::ComponentManager* m_componentManager;
 	std::unique_ptr<EntityIdPool> m_idPool;
-	std::unordered_map<core::Signature, core::SparseSet<EntityId>> m_signatureToEntityId;
 	std::unordered_map<EntityId, core::Signature> m_entityIdToSignature;
 
 	template <typename ComponentType> void CreateComponent(const EntityId entityId, core::Signature& entitySignature, ComponentType&& initialVal)
@@ -39,8 +38,6 @@ public:
 		const auto entityId = m_idPool->AcquireId();
 		core::Signature signature;
 		(CreateComponent<ComponentTypes>(entityId, signature, std::forward<Args>(args)), ...);
-		auto& set = m_signatureToEntityId[signature];
-		set.Add(entityId);
 		m_entityIdToSignature[entityId] = signature;
 		return entityId;
 	}

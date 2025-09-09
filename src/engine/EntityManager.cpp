@@ -12,21 +12,23 @@ EntityManager::EntityManager(component::ComponentManager* componentManager, cons
 
 std::vector<EntityId> EntityManager::GetEntitiesBySignature(const core::Signature signature)
 {
-	const auto it = m_signatureToEntityId.find(signature);
-	if (it == m_signatureToEntityId.end())
+	std::vector<EntityId> result;
+	result.reserve(m_entityIdToSignature.size());
+
+	for (const auto& [entityId, entitySignature] : m_entityIdToSignature)
 	{
-		return {};
+		if ((entitySignature & signature) == signature)
+		{
+			result.push_back(entityId);
+		}
 	}
-	const auto& ss = it->second;
-	std::vector<EntityId> result(ss.Size());
-	std::copy_n(ss.Data(), ss.Size(), result.begin());
+
 	return result;
 }
 
 void EntityManager::DeleteEntity(const EntityId entityId)
 {
-	core::Signature signature = m_entityIdToSignature[entityId];
-	m_signatureToEntityId.erase(signature);
+	const core::Signature signature = m_entityIdToSignature[entityId];
 	m_entityIdToSignature.erase(entityId);
 	for (size_t i = 0; i < MAX_COMPONENTS; ++i)
 	{

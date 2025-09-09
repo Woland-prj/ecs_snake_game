@@ -22,9 +22,15 @@ set(SOURCE_FILES
         engine/Engine.cpp
         engine/EntityIdPool.cpp
 
-        ../include/game/IGame.h
-        game/IGame.cpp
+        ../include/game/Components.h
+        game/TextRenderSystem.cpp
+        ../include/game/TextRenderSystem.h
+        ../include/game/InputSystem.h
+        game/InputSystem.cpp
 )
+
+add_compile_options(-fsanitize=address)
+add_link_options(-fsanitize=address)
 
 add_executable(snake ${SOURCE_FILES})
 

@@ -35,9 +35,9 @@ protected:
 		return m_entityManager;
 	}
 
-	[[nodiscard]] entity::EntityManager* ComponentManager() const
+	[[nodiscard]] component::ComponentManager* ComponentManager() const
 	{
-		return m_entityManager;
+		return m_componentManager;
 	}
 
 	auto Entities() const
