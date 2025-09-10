@@ -1,7 +1,7 @@
 #ifndef TEXTRENDERSYSTEM_H
 #define TEXTRENDERSYSTEM_H
-#include "system/System.h"
 #include "Components.h"
+#include "system/System.h"
 
 #include <chrono>
 #include <sys/ttycom.h>
@@ -21,6 +21,6 @@ public:
 	void Render() const;
 	[[nodiscard]] static winsize GetWinsize();
 };
-}
+} // namespace game
 
-#endif //TEXTRENDERSYSTEM_H
+#endif // TEXTRENDERSYSTEM_H

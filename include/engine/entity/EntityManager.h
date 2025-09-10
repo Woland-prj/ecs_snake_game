@@ -23,7 +23,8 @@ private:
 	std::unique_ptr<EntityIdPool> m_idPool;
 	std::unordered_map<EntityId, core::Signature> m_entityIdToSignature;
 
-	template <typename ComponentType> void CreateComponent(const EntityId entityId, core::Signature& entitySignature, ComponentType&& initialVal)
+	template <typename ComponentType>
+	void CreateComponent(const EntityId entityId, core::Signature& entitySignature, ComponentType&& initialVal)
 	{
 		auto componentPoolId = m_componentManager->CreateComponent<ComponentType>(entityId, std::forward<ComponentType>(initialVal));
 		entitySignature.set(componentPoolId);
@@ -33,7 +34,8 @@ public:
 	EntityManager(component::ComponentManager* componentManager, size_t idPoolMax);
 	~EntityManager() = default;
 
-	template <typename... ComponentTypes, typename... Args> EntityId CreateEntity(Args&&... args)
+	template <typename... ComponentTypes, typename... Args>
+	EntityId CreateEntity(Args&&... args)
 	{
 		const auto entityId = m_idPool->AcquireId();
 		core::Signature signature;
@@ -46,7 +48,6 @@ public:
 	void DeleteEntity(EntityId entityId);
 };
 
+} // namespace ecs_engine::entity
 
-}
-
-#endif //ENTITYMANAGER_H
+#endif // ENTITYMANAGER_H

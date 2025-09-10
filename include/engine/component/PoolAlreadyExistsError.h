@@ -13,6 +13,6 @@ public:
 	{
 	}
 };
-}
+} // namespace ecs_engine::component
 
-#endif //POOLALREADYEXISTERROR_H
+#endif // POOLALREADYEXISTERROR_H

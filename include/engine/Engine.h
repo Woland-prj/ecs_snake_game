@@ -27,23 +27,26 @@ private:
 public:
 	explicit Engine(size_t maxEntityCount, size_t frameTime);
 
-	template <typename... ComponentTypes> void RegisterComponents()
+	template <typename... ComponentTypes>
+	void RegisterComponents()
 	{
 		(RegisterComponent<ComponentTypes>(), ...);
 	}
 
-	template <typename ComponentType> void RegisterComponent()
+	template <typename ComponentType>
+	void RegisterComponent()
 	{
 		m_componentManager->RegisterComponent<ComponentType>();
 	}
 
-	template <typename SystemType, typename... Args> void AppendSystem(Args&&... args)
+	template <typename SystemType, typename... Args>
+	void AppendSystem(Args&&... args)
 	{
 		m_systemManager->RegisterSystem<SystemType>(std::forward<Args>(args)...);
 	}
 
 	void Run();
 };
-}
+} // namespace ecs_engine
 
-#endif //ENGINE_H
+#endif // ENGINE_H

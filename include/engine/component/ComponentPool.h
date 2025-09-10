@@ -8,12 +8,13 @@
 
 namespace ecs_engine::component
 {
-template <typename T> class ComponentPool final : public IComponentPool
+template <typename T>
+class ComponentPool final : public IComponentPool
 {
 public:
 	explicit ComponentPool(size_t maxCount)
 		: m_maxCount(maxCount)
-		  , m_data(static_cast<T*>(::operator new[](maxCount * sizeof(T))))
+		, m_data(static_cast<T*>(::operator new[](maxCount * sizeof(T))))
 	{
 	}
 
@@ -26,7 +27,7 @@ public:
 	{
 		if (entityId > m_maxCount)
 			throw PoolOverflowError();
-		new(&m_data[entityId]) T(std::forward<T>(initial));
+		new (&m_data[entityId]) T(std::forward<T>(initial));
 	}
 
 	void Deallocate(entity::EntityId entityId) override
@@ -44,7 +45,6 @@ private:
 	size_t m_maxCount;
 	T* m_data;
 };
-}
+} // namespace ecs_engine::component
 
-
-#endif //COMPONENTPOOL_H
+#endif // COMPONENTPOOL_H

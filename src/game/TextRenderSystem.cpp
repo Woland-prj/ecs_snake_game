@@ -2,10 +2,10 @@
 
 #include "Components.h"
 #include "system/System.h"
+#include <cstdio>
 #include <iostream>
 #include <sys/ioctl.h>
 #include <unistd.h>
-#include <cstdio>
 
 #include <chrono>
 
@@ -13,9 +13,9 @@ namespace game
 {
 
 TextRenderSystem::TextRenderSystem(const size_t fieldSize)
-	: m_fieldSize(fieldSize), m_field(std::vector<std::vector<char>>(GetWinsize().ws_row, std::vector<char>(GetWinsize().ws_col, ' ')))
-{
-};
+	: m_fieldSize(fieldSize)
+	, m_field(std::vector<std::vector<char>>(GetWinsize().ws_row, std::vector<char>(GetWinsize().ws_col, ' '))) {
+	};
 
 void TextRenderSystem::Init()
 {
@@ -62,4 +62,4 @@ winsize TextRenderSystem::GetWinsize()
 	return w;
 }
 
-}
+} // namespace game

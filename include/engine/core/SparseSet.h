@@ -3,15 +3,16 @@
 #define DEFAULT_MAX_ENTITIES 100
 #include "Signature.h"
 
-#include <vector>
 #include <cassert>
+#include <vector>
 
 namespace ecs_engine::core
 {
-#include <vector>
 #include <cassert>
+#include <vector>
 
-template <typename T> class SparseSet
+template <typename T>
+class SparseSet
 {
 private:
 	std::vector<T> dense;
@@ -21,12 +22,18 @@ private:
 
 public:
 	explicit SparseSet()
-		: dense(DEFAULT_MAX_ENTITIES), sparse(DEFAULT_MAX_ENTITIES), count(0), maxEntities(DEFAULT_MAX_ENTITIES)
+		: dense(DEFAULT_MAX_ENTITIES)
+		, sparse(DEFAULT_MAX_ENTITIES)
+		, count(0)
+		, maxEntities(DEFAULT_MAX_ENTITIES)
 	{
 	}
 
 	explicit SparseSet(size_t maxEntities)
-		: dense(maxEntities), sparse(maxEntities), count(0), maxEntities(maxEntities)
+		: dense(maxEntities)
+		, sparse(maxEntities)
+		, count(0)
+		, maxEntities(maxEntities)
 	{
 	}
 
@@ -71,7 +78,6 @@ public:
 		return dense.data();
 	}
 };
-}
+} // namespace ecs_engine::core
 
-
-#endif //SPARSESET_H
+#endif // SPARSESET_H

@@ -16,6 +16,6 @@ public:
 	virtual void Init() = 0;
 	virtual void Tick() = 0;
 };
-}
+} // namespace ecs_engine::system
 
-#endif //ISYSTEM_H
+#endif // ISYSTEM_H

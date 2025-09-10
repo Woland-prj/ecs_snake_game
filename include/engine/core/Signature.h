@@ -8,4 +8,4 @@ namespace ecs_engine::core
 using Signature = std::bitset<MAX_COMPONENTS>;
 }
 
-#endif //SIGNATURE_H
+#endif // SIGNATURE_H

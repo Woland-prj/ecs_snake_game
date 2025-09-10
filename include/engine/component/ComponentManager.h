@@ -27,7 +27,8 @@ public:
 	explicit ComponentManager(size_t maxPoolSize);
 	~ComponentManager() = default;
 
-	template <typename T> PoolId RegisterComponent()
+	template <typename T>
+	PoolId RegisterComponent()
 	{
 		try
 		{
@@ -44,7 +45,8 @@ public:
 		}
 	}
 
-	template <typename T> [[nodiscard]] PoolId GetPoolId() const
+	template <typename T>
+	[[nodiscard]] PoolId GetPoolId() const
 	{
 		if (const auto it = m_typeToIdMap.find(typeid(T)); it != m_typeToIdMap.end())
 		{
@@ -53,7 +55,8 @@ public:
 		throw PoolIdNotFoundError();
 	}
 
-	template <typename T> [[nodiscard]] PoolId CreateComponent(const entity::EntityId entityId, T&& initialVal) const
+	template <typename T>
+	[[nodiscard]] PoolId CreateComponent(const entity::EntityId entityId, T&& initialVal) const
 	{
 		const PoolId id = GetPoolId<T>();
 		auto* pool = static_cast<ComponentPool<T>*>(m_poolRegistry[id].get());
@@ -61,14 +64,16 @@ public:
 		return id;
 	}
 
-	template <typename T> T* GetComponent(entity::EntityId entityId)
+	template <typename T>
+	T* GetComponent(entity::EntityId entityId)
 	{
 		const PoolId id = GetPoolId<T>();
 		auto pool = static_cast<ComponentPool<T>*>(m_poolRegistry[id].get());
 		return pool->Get(entityId);
 	}
 
-	template <typename T> PoolId DestroyComponent(const entity::EntityId entityId)
+	template <typename T>
+	PoolId DestroyComponent(const entity::EntityId entityId)
 	{
 		const auto id = m_typeToIdMap[typeid(T)];
 		m_poolRegistry[id]->Deallocate(entityId);
@@ -78,7 +83,6 @@ public:
 	void DestroyComponent(entity::EntityId entityId, PoolId poolId) const;
 };
 
+} // namespace ecs_engine::component
 
-}
-
-#endif //COMPONENTMANAGER_H
+#endif // COMPONENTMANAGER_H

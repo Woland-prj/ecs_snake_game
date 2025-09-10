@@ -4,7 +4,6 @@ set(SOURCE_FILES
         ../include/engine/core/Signature.h
         ../include/engine/entity/EntityIdPool.h
         ../include/engine/entity/EntityManager.h
-        ../include/engine/component/Component.h
         ../include/engine/component/ComponentManager.h
         ../include/engine/component/ComponentPool.h
         ../include/engine/component/IComponentPool.h
@@ -23,9 +22,9 @@ set(SOURCE_FILES
         engine/EntityIdPool.cpp
 
         ../include/game/Components.h
-        game/TextRenderSystem.cpp
         ../include/game/TextRenderSystem.h
         ../include/game/InputSystem.h
+        game/TextRenderSystem.cpp
         game/InputSystem.cpp
 )
 

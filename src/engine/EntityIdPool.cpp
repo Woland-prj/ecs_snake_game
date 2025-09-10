@@ -22,4 +22,4 @@ void EntityIdPool::ReleaseId(const EntityId entityId)
 	m_freeIndexes.push(entityId);
 }
 
-}
+} // namespace ecs_engine::entity

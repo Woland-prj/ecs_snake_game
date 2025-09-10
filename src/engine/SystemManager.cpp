@@ -5,7 +5,8 @@ namespace ecs_engine::system
 {
 
 SystemManager::SystemManager(component::ComponentManager* componentManager, entity::EntityManager* entityManager)
-	: m_componentManager(componentManager), m_entityManager(entityManager)
+	: m_componentManager(componentManager)
+	, m_entityManager(entityManager)
 {
 }
 
@@ -25,4 +26,4 @@ void SystemManager::TickAll() const
 	}
 }
 
-}
+} // namespace ecs_engine::system

@@ -17,6 +17,6 @@ public:
 	EntityId AcquireId();
 	void ReleaseId(EntityId entityId);
 };
-}
+} // namespace ecs_engine::entity
 
-#endif //ENTITYIDPOOL_H
+#endif // ENTITYIDPOOL_H

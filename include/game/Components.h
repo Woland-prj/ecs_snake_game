@@ -51,6 +51,6 @@ struct Field
 	size_t width{};
 	size_t height{};
 };
-}
+} // namespace game
 
-#endif //COMPONENTS_H
+#endif // COMPONENTS_H

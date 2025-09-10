@@ -13,6 +13,6 @@ public:
 	{
 	}
 };
-}
+} // namespace ecs_engine::component
 
-#endif //POOLOVERFLOWERROR_H
+#endif // POOLOVERFLOWERROR_H

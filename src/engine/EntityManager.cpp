@@ -6,7 +6,8 @@ namespace ecs_engine::entity
 {
 
 EntityManager::EntityManager(component::ComponentManager* componentManager, const size_t idPoolMax)
-	: m_componentManager(componentManager), m_idPool(std::move(std::make_unique<EntityIdPool>(idPoolMax)))
+	: m_componentManager(componentManager)
+	, m_idPool(std::move(std::make_unique<EntityIdPool>(idPoolMax)))
 {
 }
 
@@ -40,4 +41,4 @@ void EntityManager::DeleteEntity(const EntityId entityId)
 	m_idPool->ReleaseId(entityId);
 }
 
-}
+} // namespace ecs_engine::entity

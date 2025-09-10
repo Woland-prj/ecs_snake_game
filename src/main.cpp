@@ -18,8 +18,7 @@ int main(int argc, char* argv[])
 		game::Growing,
 		game::NextSegment,
 		game::SnakeSegment,
-		game::SnakeHead
-	>();
+		game::SnakeHead>();
 	engine.AppendSystem<game::InputSystem>();
 	engine.AppendSystem<game::TextRenderSystem>(20);
 	engine.Run();

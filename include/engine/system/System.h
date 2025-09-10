@@ -6,14 +6,16 @@
 
 namespace ecs_engine::system
 {
-template <typename... ComponentTypes> class System : public ISystem
+template <typename... ComponentTypes>
+class System : public ISystem
 {
 	friend class SystemManager;
 
 private:
 	core::Signature m_signature;
 
-	template <typename ComponentType> void SetBitByComponentType()
+	template <typename ComponentType>
+	void SetBitByComponentType()
 	{
 		auto id = m_componentManager->GetPoolId<ComponentType>();
 		m_signature.set(id);
@@ -45,6 +47,6 @@ protected:
 		return m_entityManager->GetEntitiesBySignature(m_signature);
 	}
 };
-}
+} // namespace ecs_engine::system
 
-#endif //SYSTEM_H
+#endif // SYSTEM_H

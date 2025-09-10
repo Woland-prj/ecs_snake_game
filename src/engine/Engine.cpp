@@ -12,9 +12,9 @@ void Engine::SignalHandler(int signum)
 
 Engine::Engine(size_t maxEntityCount, const size_t frameTime)
 	: m_componentManager(std::make_unique<component::ComponentManager>(maxEntityCount))
-	  , m_entityManager(std::make_unique<entity::EntityManager>(m_componentManager.get(), maxEntityCount))
-	  , m_systemManager(std::make_unique<system::SystemManager>(m_componentManager.get(), m_entityManager.get()))
-	  , m_frameTime(frameTime)
+	, m_entityManager(std::make_unique<entity::EntityManager>(m_componentManager.get(), maxEntityCount))
+	, m_systemManager(std::make_unique<system::SystemManager>(m_componentManager.get(), m_entityManager.get()))
+	, m_frameTime(frameTime)
 {
 	std::signal(SIGINT, SignalHandler);
 }
@@ -34,4 +34,4 @@ void Engine::Run()
 		m_systemManager->TickAll();
 	}
 }
-}
+} // namespace ecs_engine

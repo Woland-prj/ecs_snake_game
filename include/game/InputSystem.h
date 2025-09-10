@@ -1,7 +1,7 @@
 #ifndef INPUTSYSTEM_H
 #define INPUTSYSTEM_H
-#include "system/System.h"
 #include "Components.h"
+#include "system/System.h"
 
 namespace game
 {
@@ -12,7 +12,6 @@ public:
 	void Init() override;
 	void Tick() override;
 };
-}
+} // namespace game
 
-
-#endif //INPUTSYSTEM_H
+#endif // INPUTSYSTEM_H

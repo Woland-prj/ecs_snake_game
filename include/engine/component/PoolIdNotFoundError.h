@@ -12,6 +12,6 @@ public:
 	{
 	}
 };
-}
+} // namespace ecs_engine::component
 
-#endif //POOLIDNOTFOUNDERROR_H
+#endif // POOLIDNOTFOUNDERROR_H
