@@ -4,8 +4,6 @@
 #include "PoolOverflowError.h"
 #include "entity/EntityIdPool.h"
 
-#include <vector>
-
 namespace ecs_engine::component
 {
 template <typename T>
