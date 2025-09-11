@@ -1,3 +1,4 @@
+#include "CollisionSystem.h"
 #include "Components.h"
 #include "Engine.h"
 #include "InitSystem.h"
@@ -14,7 +15,6 @@ int main(int argc, char* argv[])
 	engine.RegisterComponents<
 		game::Position,
 		game::Symbol,
-		game::Collidable,
 		game::Direction,
 		game::Field,
 		game::Food,
@@ -25,6 +25,7 @@ int main(int argc, char* argv[])
 	engine.AppendSystem<game::InitSystem>(fieldSize);
 	engine.AppendSystem<game::InputSystem>();
 	engine.AppendSystem<game::MovementSystem>();
+	engine.AppendSystem<game::CollisionSystem>(fieldSize);
 	engine.AppendSystem<game::TextRenderSystem>(fieldSize);
 	engine.Run();
 }

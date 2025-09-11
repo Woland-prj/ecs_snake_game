@@ -1,5 +1,6 @@
 #include "InputSystem.h"
 #include "Components.h"
+#include "Events.h"
 #include <fcntl.h>
 #include <termios.h>
 #include <unistd.h>
@@ -28,10 +29,20 @@ struct TermiosGuard
 void InputSystem::Init()
 {
 	static TermiosGuard guard;
+	EventBus()->Subscribe<CollisionEvent>([this](const CollisionEvent& event) {
+		OnCollide();
+	});
+}
+
+void InputSystem::OnCollide()
+{
+	m_isPause = true;
 }
 
 void InputSystem::Tick()
 {
+	if (m_isPause)
+		return;
 	constexpr char Esc = '\033';
 	char c;
 	ssize_t n = read(STDIN_FILENO, &c, 1);

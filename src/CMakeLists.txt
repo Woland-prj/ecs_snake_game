@@ -13,6 +13,7 @@ set(SOURCE_FILES
     ../include/engine/system/System.h
     ../include/engine/system/SystemManager.h
     ../include/engine/core/SparseSet.h
+    ../include/engine/core/EventBus.h
     ../include/engine/Engine.h
     engine/EntityManager.cpp
     engine/ComponentManager.cpp
@@ -24,9 +25,12 @@ set(SOURCE_FILES
     ../include/game/InputSystem.h
     ../include/game/MovementSystem.h
     ../include/game/InitSystem.h
+    ../include/game/CollisionSystem.h
+    ../include/game/Events.h
     game/TextRenderSystem.cpp
     game/InputSystem.cpp
     game/MovementSystem.cpp
+    game/CollisionSystem.cpp
     game/InitSystem.cpp)
 
 add_compile_options(-fsanitize=address)

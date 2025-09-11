@@ -11,6 +11,10 @@ public:
 	MovementSystem() = default;
 	void Init() override;
 	void Tick() override;
+
+private:
+	void OnCollide();
+	bool m_isPause = false;
 };
 } // namespace game
 

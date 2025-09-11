@@ -2,6 +2,7 @@
 #define SYSTEMMANAGER_H
 #include "ISystem.h"
 #include "component/ComponentManager.h"
+#include "core/EventBus.h"
 #include "entity/EntityManager.h"
 
 #include <vector>
@@ -12,12 +13,13 @@ namespace ecs_engine::system
 class SystemManager
 {
 private:
+	core::EventBus* m_eventBus;
 	component::ComponentManager* m_componentManager;
 	entity::EntityManager* m_entityManager;
 	std::vector<std::unique_ptr<ISystem>> m_systems;
 
 public:
-	SystemManager(component::ComponentManager* componentManager, entity::EntityManager* entityManager);
+	SystemManager(component::ComponentManager* componentManager, entity::EntityManager* entityManager, core::EventBus* eventBus);
 	~SystemManager() = default;
 
 	template <typename S, typename... Args>
@@ -25,7 +27,7 @@ public:
 	{
 		static_assert(std::is_base_of_v<ISystem, S>, "S must be derived from ISystem");
 		std::unique_ptr<ISystem> system = std::make_unique<S>(std::forward<Args>(args)...);
-		system->InitSystem(m_componentManager, m_entityManager);
+		system->InitSystem(m_componentManager, m_entityManager, m_eventBus);
 		m_systems.push_back(std::move(system));
 	}
 

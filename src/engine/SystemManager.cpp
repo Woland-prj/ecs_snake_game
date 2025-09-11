@@ -4,9 +4,10 @@
 namespace ecs_engine::system
 {
 
-SystemManager::SystemManager(component::ComponentManager* componentManager, entity::EntityManager* entityManager)
+SystemManager::SystemManager(component::ComponentManager* componentManager, entity::EntityManager* entityManager, core::EventBus* eventBus)
 	: m_componentManager(componentManager)
 	, m_entityManager(entityManager)
+	, m_eventBus(eventBus)
 {
 }
 

@@ -46,10 +46,6 @@ struct Growing
 {
 };
 
-struct Collidable
-{
-};
-
 struct Food
 {
 };

@@ -2,6 +2,7 @@
 #define SYSTEM_H
 #include "ISystem.h"
 #include "component/ComponentManager.h"
+#include "core/EventBus.h"
 #include "entity/EntityManager.h"
 
 namespace ecs_engine::system
@@ -21,16 +22,18 @@ private:
 		m_signature.set(id);
 	}
 
-	void InitSystem(component::ComponentManager* componentManager, entity::EntityManager* entityManager) override
+	void InitSystem(component::ComponentManager* componentManager, entity::EntityManager* entityManager, core::EventBus* eventBus) override
 	{
 		m_componentManager = componentManager;
 		m_entityManager = entityManager;
+		m_eventBus = eventBus;
 		(SetBitByComponentType<ComponentTypes>(), ...);
 	}
 
 protected:
 	component::ComponentManager* m_componentManager = nullptr;
 	entity::EntityManager* m_entityManager = nullptr;
+	core::EventBus* m_eventBus = nullptr;
 
 	[[nodiscard]] entity::EntityManager* EntityManager() const
 	{
@@ -40,6 +43,11 @@ protected:
 	[[nodiscard]] component::ComponentManager* ComponentManager() const
 	{
 		return m_componentManager;
+	}
+
+	[[nodiscard]] core::EventBus* EventBus() const
+	{
+		return m_eventBus;
 	}
 
 	auto Entities() const
