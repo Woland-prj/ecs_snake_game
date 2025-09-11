@@ -3,9 +3,7 @@
 
 #include "EntityIdPool.h"
 #include "component/ComponentManager.h"
-#include "core/SparseSet.h"
-
-#include <unordered_map>
+#include "core/Signature.h"
 
 namespace ecs_engine::component
 {
@@ -42,6 +40,12 @@ public:
 		(CreateComponent<ComponentTypes>(entityId, signature, std::forward<Args>(args)), ...);
 		m_entityIdToSignature[entityId] = signature;
 		return entityId;
+	}
+
+	template <typename ComponentType>
+	bool HasComponent(EntityId entityId)
+	{
+		return m_entityIdToSignature[entityId].test(m_componentManager->GetPoolId<ComponentType>());
 	}
 
 	std::vector<EntityId> GetEntitiesBySignature(core::Signature signature);

@@ -6,8 +6,8 @@ namespace game
 {
 struct Position
 {
-	int x;
-	int y;
+	size_t x;
+	size_t y;
 };
 
 struct Direction
@@ -18,7 +18,7 @@ struct Direction
 
 struct Symbol
 {
-	char ch;
+	wchar_t ch;
 };
 
 struct SnakeHead

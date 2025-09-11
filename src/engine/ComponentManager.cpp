@@ -1,8 +1,5 @@
 #include "component/ComponentManager.h"
 
-#include "component/PoolAlreadyExistsError.h"
-#include "component/PoolIdNotFoundError.h"
-
 namespace ecs_engine::component
 {
 

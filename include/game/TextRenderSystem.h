@@ -3,23 +3,36 @@
 #include "Components.h"
 #include "system/System.h"
 
-#include <chrono>
 #include <sys/ttycom.h>
 
 namespace game
 {
 class TextRenderSystem final : public ecs_engine::system::System<Position, Symbol>
 {
+	using Screen = std::vector<std::vector<wchar_t>>;
+
+	enum class LineType
+	{
+		Horizontal,
+		Vertical
+	};
+
 private:
+	std::wstring m_clear = L"\033[2J\033[1;1H";
+	std::wstring m_hideCursor = L"\033[?25l";
+	std::wstring m_moveTop = L"\033[H";
 	size_t m_fieldSize;
-	std::vector<std::vector<char>> m_field;
+	[[nodiscard]] Position GetGlobalCoords(Position baseCoords);
+	void Render(const Screen& screen);
+	void DrawField(Screen& screen);
+	void DrawLine(Screen& screen, LineType type, Position start, size_t length, Symbol symbol);
+	void DrawDot(Screen& screen, Position position, Symbol symbol);
+	[[nodiscard]] static winsize GetWinsize();
 
 public:
 	explicit TextRenderSystem(size_t fieldSize);
 	void Init() override;
 	void Tick() override;
-	void Render() const;
-	[[nodiscard]] static winsize GetWinsize();
 };
 } // namespace game
 
