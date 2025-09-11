@@ -1,13 +1,16 @@
 #include "Components.h"
 #include "Engine.h"
+#include "InitSystem.h"
 #include "InputSystem.h"
+#include "MovementSystem.h"
 #include "TextRenderSystem.h"
-#define FIELD_SIZE 5
-#define MAX_ENTITY 30
 
 int main(int argc, char* argv[])
 {
-	ecs_engine::Engine engine(MAX_ENTITY, ecs_engine::baseFrameTime);
+	constexpr size_t fieldSize = 20;
+	constexpr size_t maxEntityCount = 30;
+	constexpr size_t frameTime = 300;
+	ecs_engine::Engine engine(maxEntityCount, frameTime);
 	engine.RegisterComponents<
 		game::Position,
 		game::Symbol,
@@ -19,7 +22,9 @@ int main(int argc, char* argv[])
 		game::NextSegment,
 		game::SnakeSegment,
 		game::SnakeHead>();
+	engine.AppendSystem<game::InitSystem>(fieldSize);
 	engine.AppendSystem<game::InputSystem>();
-	engine.AppendSystem<game::TextRenderSystem>(20);
+	engine.AppendSystem<game::MovementSystem>();
+	engine.AppendSystem<game::TextRenderSystem>(fieldSize);
 	engine.Run();
 }

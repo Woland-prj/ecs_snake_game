@@ -39,6 +39,7 @@ void InputSystem::Tick()
 		return;
 
 	int dx = 0, dy = 0;
+	wchar_t dirCh;
 
 	// Cтрелки (ANSI escape seq)
 	if (c == Esc)
@@ -51,18 +52,22 @@ void InputSystem::Tick()
 			case 'A':
 				dx = 0;
 				dy = -1;
+				dirCh = HeadUpChar;
 				break; // вверх
 			case 'B':
 				dx = 0;
 				dy = 1;
+				dirCh = HeadDownChar;
 				break; // вниз
 			case 'C':
 				dx = 1;
 				dy = 0;
+				dirCh = HeadRightChar;
 				break; // вправо
 			case 'D':
 				dx = -1;
 				dy = 0;
+				dirCh = HeadLeftChar;
 				break; // влево
 			}
 		}
@@ -75,18 +80,22 @@ void InputSystem::Tick()
 		case 'w':
 			dx = 0;
 			dy = -1;
+			dirCh = HeadUpChar;
 			break;
 		case 's':
 			dx = 0;
 			dy = 1;
+			dirCh = HeadDownChar;
 			break;
 		case 'd':
 			dx = 1;
 			dy = 0;
+			dirCh = HeadRightChar;
 			break;
 		case 'a':
 			dx = -1;
 			dy = 0;
+			dirCh = HeadLeftChar;
 			break;
 		}
 	}
@@ -102,6 +111,8 @@ void InputSystem::Tick()
 					continue;
 				dir->dx = dx;
 				dir->dy = dy;
+				auto* headSymbol = ComponentManager()->GetComponent<Symbol>(id);
+				headSymbol->ch = dirCh;
 			}
 		}
 	}

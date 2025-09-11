@@ -88,8 +88,6 @@ void TextRenderSystem::DrawLine(Screen& screen, LineType type, Position start, s
 	{
 		for (size_t i = 0; i < length; i++)
 		{
-			if (i > m_fieldSize)
-				break;
 			DrawDot(screen, Position{ start.x, start.y + i }, symbol);
 		}
 	}

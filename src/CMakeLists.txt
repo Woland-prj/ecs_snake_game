@@ -23,9 +23,11 @@ set(SOURCE_FILES
     ../include/game/TextRenderSystem.h
     ../include/game/InputSystem.h
     ../include/game/MovementSystem.h
+    ../include/game/InitSystem.h
     game/TextRenderSystem.cpp
     game/InputSystem.cpp
-    game/MovementSystem.cpp)
+    game/MovementSystem.cpp
+    game/InitSystem.cpp)
 
 add_compile_options(-fsanitize=address)
 add_link_options(-fsanitize=address)
@@ -34,4 +36,3 @@ add_executable(snake ${SOURCE_FILES})
 
 target_include_directories(snake PRIVATE ${PROJECT_SOURCE_DIR}/include/engine
                                          ${PROJECT_SOURCE_DIR}/include/game)
-

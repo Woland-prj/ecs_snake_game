@@ -4,6 +4,14 @@
 
 namespace game
 {
+
+constexpr wchar_t SegmentChar = L'●';
+constexpr wchar_t HeadUpChar = L'▲';
+constexpr wchar_t HeadDownChar = L'▼';
+constexpr wchar_t HeadLeftChar = L'◀';
+constexpr wchar_t HeadRightChar = L'▶';
+constexpr wchar_t FieldChar = L'.';
+
 struct Position
 {
 	size_t x;
