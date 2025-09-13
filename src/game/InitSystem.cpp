@@ -5,7 +5,6 @@ namespace game
 {
 void InitSystem::Init()
 {
-
 	auto seg3 = EntityManager()->CreateEntity<SnakeSegment, Position, Symbol>(
 		SnakeSegment{},
 		Position{ m_fieldSize / 2 - 2, m_fieldSize / 2 },

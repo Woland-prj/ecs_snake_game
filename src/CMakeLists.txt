@@ -27,10 +27,14 @@ set(SOURCE_FILES
     ../include/game/InitSystem.h
     ../include/game/CollisionSystem.h
     ../include/game/Events.h
+    ../include/game/FoodSpawnSystem.h
+    ../include/game/GrowingSystem.h
     game/TextRenderSystem.cpp
     game/InputSystem.cpp
     game/MovementSystem.cpp
     game/CollisionSystem.cpp
+    game/FoodSpawnSystem.cpp
+    game/GrowingSystem.cpp
     game/InitSystem.cpp)
 
 add_compile_options(-fsanitize=address)

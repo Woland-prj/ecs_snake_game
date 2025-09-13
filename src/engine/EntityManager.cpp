@@ -27,6 +27,19 @@ std::vector<EntityId> EntityManager::GetEntitiesBySignature(const core::Signatur
 	return result;
 }
 
+std::vector<EntityId> EntityManager::GetAllEntities()
+{
+	std::vector<EntityId> result;
+	result.reserve(m_entityIdToSignature.size());
+
+	for (const auto& [entityId, entitySignature] : m_entityIdToSignature)
+	{
+		result.push_back(entityId);
+	}
+
+	return result;
+}
+
 void EntityManager::DeleteEntity(const EntityId entityId)
 {
 	const core::Signature signature = m_entityIdToSignature[entityId];

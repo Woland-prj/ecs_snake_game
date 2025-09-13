@@ -8,6 +8,10 @@ struct CollisionEvent
 {
 };
 
+struct GrowingEvent
+{
+};
+
 } // namespace game
 
 #endif // EVENTS_H

@@ -1,6 +1,8 @@
 #include "CollisionSystem.h"
 #include "Components.h"
 #include "Engine.h"
+#include "FoodSpawnSystem.h"
+#include "GrowingSystem.h"
 #include "InitSystem.h"
 #include "InputSystem.h"
 #include "MovementSystem.h"
@@ -23,9 +25,11 @@ int main(int argc, char* argv[])
 		game::SnakeSegment,
 		game::SnakeHead>();
 	engine.AppendSystem<game::InitSystem>(fieldSize);
+	engine.AppendSystem<game::FoodSpawnSystem>(fieldSize);
 	engine.AppendSystem<game::InputSystem>();
 	engine.AppendSystem<game::MovementSystem>();
 	engine.AppendSystem<game::CollisionSystem>(fieldSize);
+	engine.AppendSystem<game::GrowingSystem>(fieldSize);
 	engine.AppendSystem<game::TextRenderSystem>(fieldSize);
 	engine.Run();
 }

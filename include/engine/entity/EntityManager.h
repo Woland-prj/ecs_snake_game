@@ -22,7 +22,7 @@ private:
 	std::unordered_map<EntityId, core::Signature> m_entityIdToSignature;
 
 	template <typename ComponentType>
-	void CreateComponent(const EntityId entityId, core::Signature& entitySignature, ComponentType&& initialVal)
+	void CreateComponentInternal(const EntityId entityId, core::Signature& entitySignature, ComponentType&& initialVal)
 	{
 		auto componentPoolId = m_componentManager->CreateComponent<ComponentType>(entityId, std::forward<ComponentType>(initialVal));
 		entitySignature.set(componentPoolId);
@@ -37,9 +37,15 @@ public:
 	{
 		const auto entityId = m_idPool->AcquireId();
 		core::Signature signature;
-		(CreateComponent<ComponentTypes>(entityId, signature, std::forward<Args>(args)), ...);
+		(CreateComponentInternal<ComponentTypes>(entityId, signature, std::forward<Args>(args)), ...);
 		m_entityIdToSignature[entityId] = signature;
 		return entityId;
+	}
+
+	template <typename ComponentType>
+	void AppendComponent(const EntityId entityId)
+	{
+		m_entityIdToSignature[entityId].set(m_componentManager->GetPoolId<ComponentType>());
 	}
 
 	template <typename ComponentType>
@@ -49,6 +55,16 @@ public:
 	}
 
 	std::vector<EntityId> GetEntitiesBySignature(core::Signature signature);
+
+	template <typename... ComponentTypes>
+	std::vector<EntityId> GetEntitiesByComponents()
+	{
+		core::Signature signature;
+		(signature.set(m_componentManager->GetPoolId<ComponentTypes>()), ...);
+		return GetEntitiesBySignature(signature);
+	};
+
+	std::vector<EntityId> GetAllEntities();
 	void DeleteEntity(EntityId entityId);
 };
 

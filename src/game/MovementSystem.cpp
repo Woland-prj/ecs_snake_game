@@ -1,6 +1,8 @@
 #include "MovementSystem.h"
 #include "Components.h"
 #include "Events.h"
+#include <iostream>
+#include <ostream>
 
 namespace game
 {
@@ -46,8 +48,6 @@ void MovementSystem::Tick()
 		if (!EntityManager()->HasComponent<NextSegment>(currentId))
 			break;
 		const NextSegment* next = ComponentManager()->GetComponent<NextSegment>(currentId);
-		// if (!next || next->next == ecs_engine::entity::EntityId{})
-		// 	break;
 		currentId = next->next;
 		Position* currentPos = ComponentManager()->GetComponent<Position>(currentId);
 		Position temp = *currentPos;

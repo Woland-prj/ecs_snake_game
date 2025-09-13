@@ -4,6 +4,7 @@
 #include "PoolAlreadyExistsError.h"
 #include "PoolIdNotFoundError.h"
 
+#include <iostream>
 #include <typeindex>
 #include <unordered_map>
 
@@ -56,7 +57,7 @@ public:
 	}
 
 	template <typename T>
-	[[nodiscard]] PoolId CreateComponent(const entity::EntityId entityId, T&& initialVal) const
+	PoolId CreateComponent(const entity::EntityId entityId, T&& initialVal) const
 	{
 		const PoolId id = GetPoolId<T>();
 		auto* pool = static_cast<ComponentPool<T>*>(m_poolRegistry[id].get());

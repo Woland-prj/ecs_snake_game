@@ -1,4 +1,5 @@
 #include "CollisionSystem.h"
+#include "Components.h"
 #include "Events.h"
 
 namespace game
@@ -22,6 +23,16 @@ void CollisionSystem::Tick()
 		return;
 
 	Position* headPos = ComponentManager()->GetComponent<Position>(headId);
+
+	auto foods = EntityManager()->GetEntitiesByComponents<Food, Position>();
+	if (foods.size() != 0)
+	{
+		Position* foodPos = ComponentManager()->GetComponent<Position>(foods[0]);
+		if (foodPos->x == headPos->x && foodPos->y == headPos->y)
+		{
+			EventBus()->Publish(GrowingEvent{});
+		}
+	}
 
 	ecs_engine::entity::EntityId currentId = headId;
 
