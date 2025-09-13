@@ -2,7 +2,6 @@
 #include "Components.h"
 #include "Events.h"
 #include "entity/EntityIdPool.h"
-#include <iostream>
 
 namespace game
 {

@@ -1,8 +1,6 @@
 #include "MovementSystem.h"
 #include "Components.h"
 #include "Events.h"
-#include <iostream>
-#include <ostream>
 
 namespace game
 {
