@@ -14,28 +14,17 @@ static constexpr int baseFrameTime = 33;
 
 class Engine final
 {
-private:
-	std::unique_ptr<core::EventBus> m_eventBus;
-	std::unique_ptr<component::ComponentManager> m_componentManager;
-	std::unique_ptr<entity::EntityManager> m_entityManager;
-	std::unique_ptr<system::SystemManager> m_systemManager;
-	std::chrono::steady_clock::time_point m_lastTick;
-	const std::chrono::milliseconds m_frameTime{ 33 };
-
-	static inline bool m_running = true;
-	static void SignalHandler(int signum);
-
 public:
-	explicit Engine(size_t maxEntityCount, size_t frameTime);
+	explicit Engine(size_t maxEntityCount, size_t tickSpeed);
 
 	template <typename... ComponentTypes>
-	void RegisterComponents()
+	void RegisterComponents() const
 	{
 		(RegisterComponent<ComponentTypes>(), ...);
 	}
 
 	template <typename ComponentType>
-	void RegisterComponent()
+	void RegisterComponent() const
 	{
 		m_componentManager->RegisterComponent<ComponentType>();
 	}
@@ -46,7 +35,19 @@ public:
 		m_systemManager->RegisterSystem<SystemType>(std::forward<Args>(args)...);
 	}
 
-	void Run();
+	void Run() const;
+
+private:
+	constexpr int S_TO_MS_CONV_CONST = 1000;
+
+	std::unique_ptr<core::EventBus> m_eventBus;
+	std::unique_ptr<component::ComponentManager> m_componentManager;
+	std::unique_ptr<entity::EntityManager> m_entityManager;
+	std::unique_ptr<system::SystemManager> m_systemManager;
+	uint8_t m_tickSpeed;
+
+	static inline bool m_running = true;
+	static void SignalHandler(int signum);
 };
 } // namespace ecs_engine
 

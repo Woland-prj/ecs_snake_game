@@ -19,11 +19,40 @@ struct Position
 	size_t y;
 };
 
+struct Color
+{
+	uint8_t r;
+	uint8_t g;
+	uint8_t b;
+};
+
 struct Direction
 {
-	int dx;
-	int dy;
+	int dx{};
+	int dy{};
+
+	constexpr explicit Direction(const int x = 0, const int y = 0)
+		: dx(x)
+		, dy(y)
+	{
+	}
+
+	bool operator==(const Direction& other) const
+	{
+		return dx == other.dx && dy == other.dy;
+	}
+	bool operator!=(const Direction& other) const
+	{
+		return !(*this == other);
+	}
+
+	Direction operator+(const Direction& other) const
+	{
+		return Direction{ dx + other.dx, dy + other.dy };
+	}
 };
+
+constexpr auto zeroDir = Direction{ 0, 0 };
 
 struct Symbol
 {

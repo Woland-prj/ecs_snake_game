@@ -39,47 +39,50 @@ void InputSystem::OnCollide()
 	m_isPause = true;
 }
 
+uint8_t InputSystem::ReadRawBytes(const ssize_t count, char* buff)
+{
+	const ssize_t n = read(STDIN_FILENO, buff, count);
+	if (n <= 0)
+		return false;
+	return n;
+}
+
 void InputSystem::Tick()
 {
 	if (m_isPause)
 		return;
-	constexpr char Esc = '\033';
 	char c;
-	ssize_t n = read(STDIN_FILENO, &c, 1);
-	if (n <= 0)
+	if (!ReadRawBytes(1, &c))
 		return;
 
-	int dx = 0, dy = 0;
-	wchar_t dirCh;
+	Direction newDir{};
+	wchar_t dirCh = HeadUpChar;
 
 	// Cтрелки (ANSI escape seq)
 	if (c == Esc)
 	{
-		char seq[2];
-		if (read(STDIN_FILENO, &seq, 2) == 2 && seq[0] == '[')
+		if (char seq[2]; ReadRawBytes(2, seq) == 2 && seq[0] == '[')
 		{
 			switch (seq[1])
 			{
-			case 'A':
-				dx = 0;
-				dy = -1;
+			case ARROW_UP:
+				newDir = m_dirMap.at(Dir::UP);
 				dirCh = HeadUpChar;
-				break; // вверх
-			case 'B':
-				dx = 0;
-				dy = 1;
+				break;
+			case ARROW_DOWN:
+				newDir = m_dirMap.at(Dir::DOWN);
 				dirCh = HeadDownChar;
-				break; // вниз
-			case 'C':
-				dx = 1;
-				dy = 0;
+				break;
+			case ARROW_RIGHT:
+				newDir = m_dirMap.at(Dir::RIGHT);
 				dirCh = HeadRightChar;
-				break; // вправо
-			case 'D':
-				dx = -1;
-				dy = 0;
+				break;
+			case ARROW_LEFT:
+				newDir = m_dirMap.at(Dir::LEFT);
 				dirCh = HeadLeftChar;
-				break; // влево
+				break;
+			default:
+				break;
 			}
 		}
 	}
@@ -88,40 +91,36 @@ void InputSystem::Tick()
 		// WASD
 		switch (c)
 		{
-		case 'w':
-			dx = 0;
-			dy = -1;
+		case WASD_UP:
+			newDir = m_dirMap.at(Dir::UP);
 			dirCh = HeadUpChar;
 			break;
-		case 's':
-			dx = 0;
-			dy = 1;
+		case WASD_DOWN:
+			newDir = m_dirMap.at(Dir::DOWN);
 			dirCh = HeadDownChar;
 			break;
-		case 'd':
-			dx = 1;
-			dy = 0;
+		case WASD_RIGHT:
+			newDir = m_dirMap.at(Dir::RIGHT);
 			dirCh = HeadRightChar;
 			break;
-		case 'a':
-			dx = -1;
-			dy = 0;
+		case WASD_LEFT:
+			newDir = m_dirMap.at(Dir::LEFT);
 			dirCh = HeadLeftChar;
+			break;
+		default:
 			break;
 		}
 	}
 
-	if (dx != 0 || dy != 0)
+	if (newDir != zeroDir)
 	{
-		for (auto id : Entities())
+		for (const auto id : Entities())
 		{
-			auto* dir = ComponentManager()->GetComponent<Direction>(id);
-			if (dir)
+			if (auto* currDir = ComponentManager()->GetComponent<Direction>(id))
 			{
-				if (dir->dx + dx == 0 && dir->dy + dy == 0)
+				if ((*currDir + newDir) == zeroDir)
 					continue;
-				dir->dx = dx;
-				dir->dy = dy;
+				*currDir = newDir;
 				auto* headSymbol = ComponentManager()->GetComponent<Symbol>(id);
 				headSymbol->ch = dirCh;
 			}
