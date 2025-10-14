@@ -12,8 +12,8 @@ int main(int argc, char* argv[])
 {
 	constexpr size_t fieldSize = 20;
 	constexpr size_t maxEntityCount = 10000;
-	constexpr size_t frameTime = 5;
-	ecs_engine::Engine engine(maxEntityCount, frameTime);
+	constexpr size_t tickSpeed = 5;
+	ecs_engine::Engine engine(maxEntityCount, tickSpeed);
 	engine.RegisterComponents<
 		game::Position,
 		game::Symbol,
