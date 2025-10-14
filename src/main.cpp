@@ -11,8 +11,8 @@
 int main(int argc, char* argv[])
 {
 	constexpr size_t fieldSize = 20;
-	constexpr size_t maxEntityCount = 30;
-	constexpr size_t frameTime = 300;
+	constexpr size_t maxEntityCount = 10000;
+	constexpr size_t frameTime = 5;
 	ecs_engine::Engine engine(maxEntityCount, frameTime);
 	engine.RegisterComponents<
 		game::Position,

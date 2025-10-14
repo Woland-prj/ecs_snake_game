@@ -22,11 +22,11 @@ private:
 	std::wstring m_hideCursor = L"\033[?25l";
 	std::wstring m_moveTop = L"\033[H";
 	size_t m_fieldSize;
-	[[nodiscard]] Position GetGlobalCoords(Position baseCoords);
-	void Render(const Screen& screen);
-	void DrawField(Screen& screen);
-	void DrawLine(Screen& screen, LineType type, Position start, size_t length, Symbol symbol);
-	void DrawDot(Screen& screen, Position position, Symbol symbol);
+	[[nodiscard]] Position GetGlobalCoords(Position baseCoords) const;
+	void Render(const Screen& screen) const;
+	void DrawField(Screen& screen) const;
+	void DrawLine(Screen& screen, LineType type, Position start, size_t length, Symbol symbol) const;
+	void DrawDot(Screen& screen, Position position, Symbol symbol) const;
 	[[nodiscard]] static winsize GetWinsize();
 
 public:

@@ -9,7 +9,7 @@ namespace game
 {
 struct TermiosGuard
 {
-	termios oldt;
+	termios oldt{};
 	TermiosGuard()
 	{
 		tcgetattr(STDIN_FILENO, &oldt);

@@ -4,8 +4,7 @@
 #include "core/EventBus.h"
 #include "entity/EntityManager.h"
 #include "system/SystemManager.h"
-
-#include <chrono>
+#define S_TO_MS_CONV_CONST 1000
 
 namespace ecs_engine
 {
@@ -38,8 +37,6 @@ public:
 	void Run() const;
 
 private:
-	constexpr int S_TO_MS_CONV_CONST = 1000;
-
 	std::unique_ptr<core::EventBus> m_eventBus;
 	std::unique_ptr<component::ComponentManager> m_componentManager;
 	std::unique_ptr<entity::EntityManager> m_entityManager;

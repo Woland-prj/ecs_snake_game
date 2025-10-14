@@ -26,7 +26,7 @@ Engine::Engine(size_t maxEntityCount, const size_t tickSpeed)
 void Engine::Run() const
 {
 	m_systemManager->InitAll();
-	constexpr auto frameTime = std::chrono::milliseconds(S_TO_MS_CONV_CONST / m_tickSpeed);
+	const auto frameTime = std::chrono::milliseconds(S_TO_MS_CONV_CONST / m_tickSpeed);
 	while (m_running)
 	{
 

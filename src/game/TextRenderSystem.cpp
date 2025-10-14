@@ -8,10 +8,10 @@
 
 namespace game
 {
-Position TextRenderSystem::GetGlobalCoords(Position baseCoords)
+Position TextRenderSystem::GetGlobalCoords(const Position baseCoords) const
 {
-	int offset_y = (GetWinsize().ws_row - m_fieldSize) / 2;
-	int offset_x = (GetWinsize().ws_col - m_fieldSize) / 2;
+	const int offset_y = (GetWinsize().ws_row - m_fieldSize) / 2;
+	const int offset_x = (GetWinsize().ws_col - m_fieldSize) / 2;
 
 	return Position{
 		.x = baseCoords.x + offset_x,
@@ -32,7 +32,7 @@ void TextRenderSystem::Init()
 
 void TextRenderSystem::Tick()
 {
-	Screen screen(GetWinsize().ws_row, std::vector<wchar_t>(GetWinsize().ws_col, L' '));
+	Screen screen(GetWinsize().ws_row, std::vector(GetWinsize().ws_col, L' '));
 
 	DrawField(screen);
 
@@ -46,7 +46,7 @@ void TextRenderSystem::Tick()
 	Render(screen);
 }
 
-void TextRenderSystem::Render(const Screen& screen)
+void TextRenderSystem::Render(const Screen& screen) const
 {
 	static Screen oldScreen(screen.size(), std::vector<wchar_t>(screen[0].size(), L' '));
 	std::wcout << m_moveTop;
@@ -75,7 +75,12 @@ winsize TextRenderSystem::GetWinsize()
 	return w;
 }
 
-void TextRenderSystem::DrawLine(Screen& screen, LineType type, Position start, size_t length, Symbol symbol)
+void TextRenderSystem::DrawLine(
+	Screen& screen,
+	const LineType type,
+	const Position start,
+	const size_t length,
+	const Symbol symbol) const
 {
 	if (type == LineType::Horizontal)
 	{
@@ -93,19 +98,19 @@ void TextRenderSystem::DrawLine(Screen& screen, LineType type, Position start, s
 	}
 }
 
-void TextRenderSystem::DrawDot(Screen& screen, Position position, Symbol symbol)
+void TextRenderSystem::DrawDot(Screen& screen, const Position position, const Symbol symbol) const
 {
-	auto coord = GetGlobalCoords(position);
-	if (coord.y < 0 || coord.y >= screen.size())
+	auto [x, y] = GetGlobalCoords(position);
+	if (y >= screen.size())
 		return;
-	if (coord.x < 0 || coord.x >= screen[coord.y].size())
+	if (x >= screen[y].size())
 		return;
 	if (position.x >= m_fieldSize || position.y >= m_fieldSize)
 		return;
-	screen[coord.y][coord.x] = symbol.ch;
+	screen[y][x] = symbol.ch;
 }
 
-void TextRenderSystem::DrawField(Screen& screen)
+void TextRenderSystem::DrawField(Screen& screen) const
 {
 	DrawLine(screen, LineType::Horizontal, Position{ 1, 0 }, m_fieldSize - 2, Symbol{ L'─' });
 	DrawLine(screen, LineType::Vertical, Position{ 0, 1 }, m_fieldSize - 2, Symbol{ L'│' });
