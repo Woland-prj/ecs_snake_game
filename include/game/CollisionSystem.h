@@ -8,7 +8,7 @@ namespace game
 class CollisionSystem final : public ecs_engine::system::System<SnakeSegment, Position>
 {
 public:
-	CollisionSystem(size_t fieldSize)
+	explicit CollisionSystem(const size_t fieldSize)
 		: m_fieldSize(fieldSize) {};
 	void Init() override;
 	void Tick() override;
