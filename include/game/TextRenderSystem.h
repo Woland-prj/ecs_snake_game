@@ -35,7 +35,7 @@ public:
 	void Init() override;
 	void Tick() override;
 
-	~TextRenderSystem();
+	~TextRenderSystem() override;
 };
 } // namespace game
 
