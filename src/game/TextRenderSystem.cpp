@@ -122,4 +122,9 @@ void TextRenderSystem::DrawField(Screen& screen) const
 	DrawDot(screen, Position{ m_fieldSize - 1, m_fieldSize - 1 }, Symbol{ L'┘' });
 }
 
+TextRenderSystem::~TextRenderSystem()
+{
+	std::wcout << m_showCursor << m_clear;
+}
+
 } // namespace game

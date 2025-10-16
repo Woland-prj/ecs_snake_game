@@ -7,6 +7,7 @@
 #include <iostream>
 #include <typeindex>
 #include <unordered_map>
+#include <memory>
 
 namespace ecs_engine::component
 {

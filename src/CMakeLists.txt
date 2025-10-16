@@ -37,8 +37,8 @@ set(SOURCE_FILES
     game/GrowingSystem.cpp
     game/InitSystem.cpp)
 
-add_compile_options(-fsanitize=address)
-add_link_options(-fsanitize=address)
+#add_compile_options(-fsanitize=address)
+#add_link_options(-fsanitize=address)
 
 add_executable(snake ${SOURCE_FILES})
 
