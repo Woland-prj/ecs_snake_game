@@ -2,6 +2,8 @@
 #define COMPONENTS_H
 #include "entity/EntityIdPool.h"
 
+#include <cstdint>
+
 namespace game
 {
 

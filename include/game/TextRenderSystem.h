@@ -3,7 +3,7 @@
 #include "Components.h"
 #include "system/System.h"
 
-#include <sys/ttycom.h>
+#include <sys/ioctl.h>
 
 namespace game
 {
@@ -20,6 +20,7 @@ class TextRenderSystem final : public ecs_engine::system::System<Position, Symbo
 private:
 	std::wstring m_clear = L"\033[2J\033[1;1H";
 	std::wstring m_hideCursor = L"\033[?25l";
+	std::wstring m_showCursor = L"\033[?25h";
 	std::wstring m_moveTop = L"\033[H";
 	size_t m_fieldSize;
 	[[nodiscard]] Position GetGlobalCoords(Position baseCoords) const;
@@ -33,6 +34,8 @@ public:
 	explicit TextRenderSystem(size_t fieldSize);
 	void Init() override;
 	void Tick() override;
+
+	~TextRenderSystem();
 };
 } // namespace game
 

@@ -5,6 +5,8 @@
 #include "component/ComponentManager.h"
 #include "core/Signature.h"
 
+#include <memory>
+
 namespace ecs_engine::component
 {
 class ComponentManager;

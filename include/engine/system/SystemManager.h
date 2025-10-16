@@ -6,6 +6,7 @@
 #include "entity/EntityManager.h"
 
 #include <vector>
+#include <memory>
 
 namespace ecs_engine::system
 {
