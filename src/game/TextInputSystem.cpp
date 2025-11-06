@@ -1,4 +1,4 @@
-#include "InputSystem.h"
+#include "TextInputSystem.h"
 #include "Components.h"
 #include "Events.h"
 #include <fcntl.h>
@@ -26,7 +26,7 @@ struct TermiosGuard
 	}
 };
 
-void InputSystem::Init()
+void TextInputSystem::Init()
 {
 	static TermiosGuard guard;
 	EventBus()->Subscribe<CollisionEvent>([this](const CollisionEvent& event) {
@@ -34,12 +34,12 @@ void InputSystem::Init()
 	});
 }
 
-void InputSystem::OnCollide()
+void TextInputSystem::OnCollide()
 {
 	m_isPause = true;
 }
 
-uint8_t InputSystem::ReadRawBytes(const ssize_t count, char* buff)
+uint8_t TextInputSystem::ReadRawBytes(const ssize_t count, char* buff)
 {
 	const ssize_t n = read(STDIN_FILENO, buff, count);
 	if (n <= 0)
@@ -47,7 +47,7 @@ uint8_t InputSystem::ReadRawBytes(const ssize_t count, char* buff)
 	return n;
 }
 
-void InputSystem::Tick()
+void TextInputSystem::Tick()
 {
 	if (m_isPause)
 		return;
@@ -56,7 +56,7 @@ void InputSystem::Tick()
 		return;
 
 	Direction newDir{};
-	wchar_t dirCh = HeadUpChar;
+	wchar_t dirCh = HEAD_UP_CHAR;
 
 	// Cтрелки (ANSI escape seq)
 	if (c == Esc)
@@ -67,19 +67,19 @@ void InputSystem::Tick()
 			{
 			case ARROW_UP:
 				newDir = m_dirMap.at(Dir::UP);
-				dirCh = HeadUpChar;
+				dirCh = HEAD_UP_CHAR;
 				break;
 			case ARROW_DOWN:
 				newDir = m_dirMap.at(Dir::DOWN);
-				dirCh = HeadDownChar;
+				dirCh = HEAD_DOWN_CHAR;
 				break;
 			case ARROW_RIGHT:
 				newDir = m_dirMap.at(Dir::RIGHT);
-				dirCh = HeadRightChar;
+				dirCh = HEAD_RIGHT_CHAR;
 				break;
 			case ARROW_LEFT:
 				newDir = m_dirMap.at(Dir::LEFT);
-				dirCh = HeadLeftChar;
+				dirCh = HEAD_LEFT_CHAR;
 				break;
 			default:
 				break;
@@ -93,19 +93,19 @@ void InputSystem::Tick()
 		{
 		case WASD_UP:
 			newDir = m_dirMap.at(Dir::UP);
-			dirCh = HeadUpChar;
+			dirCh = HEAD_UP_CHAR;
 			break;
 		case WASD_DOWN:
 			newDir = m_dirMap.at(Dir::DOWN);
-			dirCh = HeadDownChar;
+			dirCh = HEAD_DOWN_CHAR;
 			break;
 		case WASD_RIGHT:
 			newDir = m_dirMap.at(Dir::RIGHT);
-			dirCh = HeadRightChar;
+			dirCh = HEAD_RIGHT_CHAR;
 			break;
 		case WASD_LEFT:
 			newDir = m_dirMap.at(Dir::LEFT);
-			dirCh = HeadLeftChar;
+			dirCh = HEAD_LEFT_CHAR;
 			break;
 		default:
 			break;

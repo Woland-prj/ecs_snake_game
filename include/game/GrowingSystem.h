@@ -14,7 +14,7 @@ public:
 	void Tick() override;
 
 private:
-	void OnGrow();
+	void OnGrow() const;
 	size_t m_fieldSize;
 };
 } // namespace game

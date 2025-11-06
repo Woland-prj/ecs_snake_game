@@ -15,10 +15,10 @@ void Engine::SignalHandler(int signum)
 
 Engine::Engine(size_t maxEntityCount, const size_t tickSpeed)
 	: m_eventBus(std::make_unique<core::EventBus>())
-	, m_componentManager(std::make_unique<component::ComponentManager>(maxEntityCount))
-	, m_entityManager(std::make_unique<entity::EntityManager>(m_componentManager.get(), maxEntityCount))
-	, m_systemManager(std::make_unique<system::SystemManager>(m_componentManager.get(), m_entityManager.get(), m_eventBus.get()))
-	, m_tickSpeed(tickSpeed)
+	  , m_componentManager(std::make_unique<component::ComponentManager>(maxEntityCount))
+	  , m_entityManager(std::make_unique<entity::EntityManager>(m_componentManager.get(), maxEntityCount))
+	  , m_systemManager(std::make_unique<system::SystemManager>(m_componentManager.get(), m_entityManager.get(), m_eventBus.get()))
+	  , m_tickSpeed(tickSpeed)
 {
 	std::signal(SIGINT, SignalHandler);
 }
@@ -29,7 +29,6 @@ void Engine::Run() const
 	const auto frameTime = std::chrono::milliseconds(S_TO_MS_CONV_CONST / m_tickSpeed);
 	while (m_running)
 	{
-
 		const auto start = std::chrono::steady_clock::now();
 
 		m_systemManager->TickAll();

@@ -1,11 +1,12 @@
-#ifndef INPUTSYSTEM_H
-#define INPUTSYSTEM_H
+#ifndef TEXTINPUTSYSTEM_H
+#define TEXTINPUTSYSTEM_H
 #include "Components.h"
 #include "system/System.h"
 #include <unordered_map>
 
 namespace game
 {
+
 enum class Dir
 {
 	UP,
@@ -14,15 +15,18 @@ enum class Dir
 	RIGHT
 };
 
-class InputSystem final : public ecs_engine::system::System<SnakeHead, Direction>
+class TextInputSystem final : public ecs_engine::system::System<SnakeHead, Direction>
 {
 public:
-	InputSystem() = default;
+	TextInputSystem() = default;
+
 	void Init() override;
+
 	void Tick() override;
 
 private:
 	void OnCollide();
+
 	static uint8_t ReadRawBytes(ssize_t count, char* buff);
 
 	bool m_isPause = false;
@@ -47,4 +51,4 @@ private:
 };
 } // namespace game
 
-#endif // INPUTSYSTEM_H
+#endif // TEXTINPUTSYSTEM_H

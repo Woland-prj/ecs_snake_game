@@ -6,43 +6,43 @@
 
 namespace game
 {
-void FoodSpawnSystem::Init() {}
+void FoodSpawnSystem::Init()
+{
+}
+
 void FoodSpawnSystem::Tick()
 {
-	auto segments = EntityManager()->GetEntitiesByComponents<SnakeSegment>();
-	auto foods = Entities();
-	if (foods.size() == 0)
+	const auto segments = EntityManager()->GetEntitiesByComponents<SnakeSegment>();
+	if (const auto foods = Entities(); foods.empty())
 	{
 		auto spawnPos = GetSpawnPosition(segments);
-		auto food = EntityManager()->CreateEntity<Food, Position, Symbol>(
+		auto food = EntityManager()->CreateEntity<Food, Position, Symbol, Color>(
 			Food{},
 			Position(spawnPos),
-			Symbol{ FoodChar });
+			Symbol{ FOOD_CHAR },
+			Color(FOOD_COLOR));
 	}
 }
 
 Position FoodSpawnSystem::GetSpawnPosition(const std::vector<ecs_engine::entity::EntityId>& segments)
 {
-	Position spawnPos;
-	bool found = false;
-	while (!found)
+	while (true)
 	{
-		auto pos = Position{ m_dist(m_rng), m_dist(m_rng) };
+		Position pos{ m_dist(m_rng), m_dist(m_rng) };
+		bool conflict = false;
 		for (const auto seg : segments)
 		{
-			Position* segPos = ComponentManager()->GetComponent<Position>(seg);
-			if (pos.x == segPos->x && pos.y == segPos->y)
+			if (const auto* segPos = ComponentManager()->GetComponent<Position>(seg))
 			{
-				found = false;
-				break;
+				if (pos == *segPos)
+				{
+					conflict = true;
+					break;
+				}
 			}
 		}
-		if (!found)
-		{
-			spawnPos = pos;
-			found = true;
-		}
+		if (!conflict)
+			return pos;
 	}
-	return spawnPos;
 }
 } // namespace game
