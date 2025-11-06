@@ -11,8 +11,8 @@ GraphicsRenderSystem::GraphicsRenderSystem(const size_t fieldSize)
 void GraphicsRenderSystem::Init()
 {
 	auto windowSize = static_cast<unsigned int>(m_fieldSize * m_cellSize);
-	m_window.create(sf::VideoMode({ windowSize, windowSize }), "ECS Snake");
-	m_window.setFramerateLimit(60);
+	m_window.create(sf::VideoMode({ windowSize, windowSize }), WIN_TITLE);
+	m_window.setFramerateLimit(FRAME_LIMIT);
 	EventBus()->Publish(WindowCreatedEvent(m_window));
 }
 

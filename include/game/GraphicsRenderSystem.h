@@ -9,6 +9,8 @@
 namespace game
 {
 static constexpr int BASIC_CELL_SIZE = 20;
+static constexpr auto WIN_TITLE = "ECS Snake";
+static constexpr int FRAME_LIMIT = 60;
 
 class GraphicsRenderSystem final : public ecs_engine::system::System<Position, Color>
 {
