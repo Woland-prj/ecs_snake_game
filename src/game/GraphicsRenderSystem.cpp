@@ -25,8 +25,9 @@ void GraphicsRenderSystem::Tick()
 	{
 		const Position* position = ComponentManager()->GetComponent<Position>(entityId);
 		const Color* color = ComponentManager()->GetComponent<Color>(entityId);
-		if (position && color)
-			DrawDot(*position, *color);
+		const Texture* texture = ComponentManager()->GetComponent<Texture>(entityId);
+		if (position && texture)
+			DrawTexturedDot(*position, *texture);
 	}
 
 	m_window.display();
@@ -63,6 +64,24 @@ void GraphicsRenderSystem::DrawDot(const Position& position, const Color& color)
 	cell.setPosition({ static_cast<float>(position.x * m_cellSize) + 1, static_cast<float>(position.y * m_cellSize) + 1 });
 	cell.setFillColor(sf::Color(color.r, color.g, color.b));
 	m_window.draw(cell);
+}
+
+void GraphicsRenderSystem::DrawTexturedDot(const Position& position, const Texture& texture)
+{
+	if (position.x >= m_fieldSize || position.y >= m_fieldSize)
+		return;
+	sf::Texture sfmlTexture;
+	if (!sfmlTexture.loadFromFile(texture, false, sf::IntRect(
+		{ 0, 0 },
+		{ m_cellSize - 1, m_cellSize - 1 })))
+	{
+		std::cerr << "ERROR: failed to load texture\n";
+		return;
+	}
+	sfmlTexture.setSmooth(true);
+	sf::Sprite sprite(sfmlTexture);
+	sprite.setPosition({ static_cast<float>(position.x * m_cellSize) + 1, static_cast<float>(position.y * m_cellSize) + 1 });
+	m_window.draw(sprite);
 }
 
 } // namespace game

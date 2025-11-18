@@ -37,14 +37,19 @@ constexpr auto SNAKE_COLOR = Color{ 0, 200, 100 };
 constexpr auto FIELD_COLOR = Color{ 80, 80, 80 };
 constexpr auto FOOD_COLOR = Color{ 230, 0, 0 };
 
+using Texture = const char*;
+
+constexpr Texture FOOD_TEXTURE = "assets/apple-texture.png";
+constexpr Texture BODY_TEXTURE = "assets/body-texture.png";
+constexpr Texture HEAD_TEXTURE = "assets/head-texture.png";
+
 struct Direction
 {
 	int dx{};
 	int dy{};
 
 	constexpr explicit Direction(const int x = 0, const int y = 0)
-		: dx(x)
-		  , dy(y)
+		: dx(x), dy(y)
 	{
 	}
 

@@ -36,11 +36,12 @@ void GrowingSystem::OnGrow() const
 
 	const Direction tailDir(tailSegmentPos->x - prevSegmentPos->x, tailSegmentPos->y - prevSegmentPos->y);
 
-	const auto newSeg = EntityManager()->CreateEntity<SnakeSegment, Position, Symbol, Color>(
+	const auto newSeg = EntityManager()->CreateEntity<SnakeSegment, Position, Symbol, Color, Texture>(
 		SnakeSegment{},
 		Position{ tailSegmentPos->x + tailDir.dx, tailSegmentPos->y + tailDir.dy },
 		Symbol{ SEGMENT_CHAR },
-		Color(SNAKE_COLOR)
+		Color(SNAKE_COLOR),
+		Texture{ BODY_TEXTURE }
 		);
 
 	ComponentManager()->CreateComponent<NextSegment>(currSegment, NextSegment{ newSeg });

@@ -16,11 +16,12 @@ void FoodSpawnSystem::Tick()
 	if (const auto foods = Entities(); foods.empty())
 	{
 		auto spawnPos = GetSpawnPosition(segments);
-		auto food = EntityManager()->CreateEntity<Food, Position, Symbol, Color>(
+		auto food = EntityManager()->CreateEntity<Food, Position, Symbol, Color, Texture>(
 			Food{},
 			Position(spawnPos),
 			Symbol{ FOOD_CHAR },
-			Color(FOOD_COLOR));
+			Color(FOOD_COLOR),
+			Texture{ FOOD_TEXTURE });
 	}
 }
 

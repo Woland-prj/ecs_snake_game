@@ -12,7 +12,7 @@ static constexpr int BASIC_CELL_SIZE = 20;
 static constexpr auto WIN_TITLE = "ECS Snake";
 static constexpr int FRAME_LIMIT = 60;
 
-class GraphicsRenderSystem final : public ecs_engine::system::System<Position, Color>
+class GraphicsRenderSystem final : public ecs_engine::system::System<Position, Color, Texture>
 {
 public:
 	explicit GraphicsRenderSystem(size_t fieldSize);
@@ -29,6 +29,8 @@ private:
 	void DrawField();
 
 	void DrawDot(const Position& position, const Color& color);
+
+	void DrawTexturedDot(const Position& position, const Texture& texture);
 };
 
 } // namespace game

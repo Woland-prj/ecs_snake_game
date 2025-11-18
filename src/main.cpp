@@ -12,7 +12,7 @@ int main(int argc, char* argv[])
 {
 	constexpr size_t fieldSize = 20;
 	constexpr size_t maxEntityCount = 10000;
-	constexpr size_t tickSpeed = 5;
+	constexpr size_t tickSpeed = 8;
 	ecs_engine::Engine engine(maxEntityCount, tickSpeed);
 	engine.RegisterComponents<
 		game::Position,
@@ -24,7 +24,8 @@ int main(int argc, char* argv[])
 		game::NextSegment,
 		game::SnakeSegment,
 		game::SnakeHead,
-		game::Color
+		game::Color,
+		game::Texture
 	>();
 	engine.AppendSystem<game::InitSystem>(fieldSize);
 	engine.AppendSystem<game::FoodSpawnSystem>(fieldSize);
